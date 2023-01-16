@@ -69,7 +69,7 @@ def hra(balicek):
 
     if hrac_skore == 21:
         pprint("WOHOOO BLACKJACK")
-        pprint("VYHRAL JSI TY ZKURVENEJ HAZARDERE")
+        pprint("VYHRAL JSI TY HAZARDERE")
         return
     if hrac_skore > 21:
         pprint("SORRY KAMO, PROHRAL JSI")
@@ -77,7 +77,7 @@ def hra(balicek):
     while hrac_skore < 21:
         volba = input("Zadej B pro braní dalsí karty nebo S pro stání").upper()
         if len(volba) != 1 or volba not in ["S", "B"]:
-            print("DOBREJ POKUS, VOLE")
+            print("DOBREJ POKUS")
 
         if volba == 'B':
             hrac_karta = random.choice(balicek)  # davani random karty hraci
@@ -88,18 +88,18 @@ def hra(balicek):
 
             a = 0
             while a < len(hrac_karty):
-                if hrac_karty[a]["hodnota"] == 11 and hrac_karty[a]["hodnota"] == 11 or hrac_karty[a]["hodnota"] == 11 and hrac_karty[a]["hodnota"] == 10:
+                if hrac_karty[a]["hodnota"] == 11 and hrac_karty[a]["hodnota"] == 11 and hrac_skore > 21 or hrac_karty[a]["hodnota"] == 11 and hrac_karty[a]["hodnota"] == 10 and hrac_skore > 21:
                     hrac_karty[a]["hodnota"] = 1
                     hrac_skore -= 10
                 a += 1
 
             pprint("Dealerovy karty: ")
-            print(dealer_karty[:-1], True)
-            print("dealorovo skore = ", dealer_skore - dealer_karty[:-1]["hodnota"])
+            pprint(dealer_karty)
+            print("dealorovo skore = ", dealer_skore)
             print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
             pprint("Hráčovi karty: ")
-            pprint(hrac_karty, False)
+            pprint(hrac_karty)
             print("hráčovo skore = ", hrac_skore)
             print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
@@ -107,28 +107,11 @@ def hra(balicek):
             break
 
     pprint("Hráčovi karty: ")
-    pprint(hrac_karty, False)
+    pprint(hrac_karty)
     print("hráčovo skore = ", hrac_skore)
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
     print("DEALER ODHLUJE SVE KARTY")
-
-    pprint("Dealerovy karty: ")
-    print(dealer_karty, False)
-    print("dealorovo skore = ", dealer_skore)
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
-    if hrac_skore == 21:
-        pprint("WOHOOO BLACKJACK")
-        pprint("VYHRAL JSI TY ZKURVENEJ HAZARDERE")
-        quit()
-
-    if hrac_skore > 21:
-        pprint("SORRY KAMO, PROHRAL JSI")
-        quit()
-
-    input()
-
     while dealer_skore < 17:
 
         pprint("DEALER SI BERE KARTU....")
@@ -140,36 +123,50 @@ def hra(balicek):
         dealer_skore += dealer_karta["hodnota"]  # updatovani dealerova skore
 
         a = 0
-        while a < len(hrac_karty):
-            if hrac_karty[a]["hodnota"] == 11 and hrac_karty[a]["hodnota"] == 11 or hrac_karty[a]["hodnota"] == 11 and \
-                    hrac_karty[a]["hodnota"] == 10:
-                hrac_karty[a]["hodnota"] = 1
-                hrac_skore -= 10
+        while a < len(dealer_karty):
+            if dealer_karty[a]["hodnota"] == 11 and dealer_karty[a]["hodnota"] == 11 and dealer_skore > 21 or dealer_karty[a]["hodnota"] == 11 and \
+                    dealer_karty[a]["hodnota"] == 10 and dealer_skore > 21:
+                dealer_karty[a]["hodnota"] = 1
+                dealer_skore -= 10
             a += 1
 
         pprint("Hráčovi karty: ")
-        pprint(hrac_karty, False)
+        pprint(hrac_karty)
         print("hráčovo skore = ", hrac_skore)
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
         pprint("Dealerovy karty: ")
-        print(dealer_karty[:-1], True)
-        print("dealorovo skore = ", dealer_skore - dealer_karty[:-1]["hodnota"])
+        print(dealer_karty, True)
+        print("dealorovo skore = ", dealer_skore )
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    pprint("Dealerovy karty: ")
+    pprint(dealer_karty)
+    print("dealorovo skore = ", dealer_skore)
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+    if hrac_skore == 21:
+        pprint("WOHOOO BLACKJACK")
+        pprint("VYHRAL JSI TY HAZARDERE")
+
+
+    if hrac_skore > 21:
+        pprint("SORRY KAMO, PROHRAL JSI")
+
+    input()
+
+
 
     if dealer_skore > 21:
-        pprint("DEALER PROHRAVA! VYHRAL JSI TY ZKURVENEJ HAZARDERE")
-        quit()
+        pprint("DEALER PROHRAVA! VYHRAL JSI TY HAZARDERE")
 
     if dealer_skore == 21:
         pprint("DEALER MA BLACKJACK! PROHRAL JSI")
-        quit()
 
     if dealer_skore == hrac_skore:
         print("REMIZA")
 
     elif hrac_skore > dealer_skore:
-        print("VYHRAL JSI TY ZKURVENEJ HAZARDERE")
+        print("VYHRAL JSI TY HAZARDERE")
 
     else:
         print("DEALER VYHRAL")
