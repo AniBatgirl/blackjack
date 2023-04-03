@@ -2,6 +2,7 @@ import random
 from pprint import pprint
 import json
 import re
+import logging
 
 LEADERBOARD_SOUBOR = "leaderboard.json"
 karty = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -106,7 +107,7 @@ def dealer_plus_karta(dealer_karty, dealer_skore):  # prida dealerovi kartu
     return dealer_karty, dealer_skore
 
 
-def hra(balicek, in_nick , bonbony_max, hodnoty_karet):
+def hra(balicek, in_nick, bonbony_max, hodnoty_karet):
     global bonbony_celkem
     while True:
         bonbony = input(f"kolik chceš vsadit bonbonů? máš {bonbony_celkem} bonbonu")
@@ -298,3 +299,5 @@ while True:  # hlavni menu
         quit()
     else:
         continue
+
+
